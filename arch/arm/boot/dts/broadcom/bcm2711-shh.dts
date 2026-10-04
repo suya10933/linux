@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include "bcm2711-rpi-cm4.dtsi"
+
+/ {
+	model = "SHH Handheld";
+
+	compatible = "suya,shh",
+				 "raspberrypi,4-compute-module",
+				 "brcm,bcm2711";
+};
+
+&gpio {
+	shh_spi0_pins: shh-spi0-pins {
+		brcm,pins = <8 9 10 11>;
+		brcm,function = <BCM2835_FSEL_ALT0>;
+	};
+};
+
+spi0: &spi {
+	pinctrl-names = "default";
+	pinctrl-0 = <&shh_spi0_pins>;
+	status = "okay";j
+
+	spidev@0 {
+		compatible = "spidev";
+		reg = <0>;
+		spi-max-frequency = <10000000>;
+	};
+};
+
+&pcie0 {
+	status = "disabled";
+};
+
+&i2s {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pcm_gpio18>;
+	status = "disabled";
+};
+
+&dsi0 {
+	status = "disabled";
+};
