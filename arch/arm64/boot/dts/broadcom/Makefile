@@ -30,6 +30,7 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2712-rpi-cm5-cm5io.dtb
 dtb-$(CONFIG_ARCH_BCM2835) += bcm2712-rpi-cm5-cm4io.dtb
 dtb-$(CONFIG_ARCH_BCM2835) += bcm2712-rpi-cm5l-cm5io.dtb
 dtb-$(CONFIG_ARCH_BCM2835) += bcm2712-rpi-cm5l-cm4io.dtb
+dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-shh.dtb
 
 subdir-y	+= bcmbca
 subdir-y	+= northstar2
