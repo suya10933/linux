@@ -1344,6 +1344,14 @@ config MFD_SEC_CORE
 	  on this driver so building this as a module might require proper
 	  initial ramdisk or might not boot up as well in certain scenarios.
 
+config MFD_SHH_MCU
+	tristate "SHH handheld board MCU (RP2354A) over SPI"
+	depends on SPI_MASTER
+	select REGMAP
+	select CRC8
+	help
+	  Support for the RP2354A board MCU on the SHH handheld.
+
 config MFD_SI476X_CORE
 	tristate "Silicon Laboratories 4761/64/68 AM/FM radio."
 	depends on I2C
