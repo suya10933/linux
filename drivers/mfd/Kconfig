@@ -1346,8 +1346,10 @@ config MFD_SEC_CORE
 
 config MFD_SHH_MCU
 	tristate "SHH handheld board MCU (RP2354A) over SPI"
-	depends on SPI_MASTER
-	select REGMAP
+	depends on SPI_MASTER && OF
+	depends on GPIOLIB
+	depends on INPUT
+	depends on BACKLIGHT_CLASS_DEVICE
 	select CRC8
 	help
 	  Support for the RP2354A board MCU on the SHH handheld.
