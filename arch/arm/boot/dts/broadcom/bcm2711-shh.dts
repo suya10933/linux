@@ -25,11 +25,13 @@ spi0: &spi {
 	cs-gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
 	status = "okay";
 
-	spidev@0 {
-		compatible = "spidev";
-		spi-cpha;
+	shh_mcu: mcu@0 {
+		compatible = "shh,shh-mcu";
 		reg = <0>;
 		spi-max-frequency = <10000000>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "LCD_RESET";
 	};
 };
 
@@ -43,6 +45,48 @@ spi0: &spi {
 	status = "disabled";
 };
 
-&dsi0 {
+&vc4 {
+	status = "okay";
+};
+
+&pixelvalve0 {
+	status = "okay";
+};
+
+&vec {
 	status = "disabled";
+};
+
+&dsi0 {
+	status = "okay";
+
+	port {
+		dsi0_out: endpoint {
+			remote-endpoint = <&panel_in>;
+		};
+	};
+
+	panel@0 {
+		compatible = "eastrising,er-tft050-10", "ilitek,ili9881c";
+		reg = <0>;
+		reset-gpios = <&shh_mcu 0 GPIO_ACTIVE_LOW>;
+		backlight = <&shh_mcu>;
+
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&dsi0_out>;
+			};
+		};
+	};
+};
+
+&sdhci {
+	status = "disabled";
+};
+
+/ {
+	aliases {
+		mmc0 = &emmc2;
+		mmc1 = &sdhci;
+	};
 };
